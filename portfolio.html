@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Name — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&family=Epilogue:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1814;
+    --ink-2: #4a4740;
+    --ink-3: #8a8680;
+    --paper: #f7f4ee;
+    --paper-2: #ede9e0;
+    --rule: #d4cfc4;
+    --accent: #2d5a3d;
+    --accent-light: #e8f0eb;
+    --accent-2: #8b4513;
+    --highlight: #c8a45a;
+    --font-serif: 'Libre Baskerville', Georgia, serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-sans: 'Epilogue', sans-serif;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-serif);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  .site-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .nav-name {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--ink-2);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .nav-links li { cursor: pointer; transition: color 0.15s; }
+  .nav-links li:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 5rem 0 4.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .hero-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: 3.6rem;
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 2.25rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent-2);
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.75rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .hero-cta:hover { background: var(--accent); }
+
+  .hero-statement {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--ink-2);
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-statement strong { color: var(--ink); font-weight: 700; }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--rule);
+    color: var(--ink-2);
+    background: var(--paper-2);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 4.5rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 2.75rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+
+  /* ── WRITING CARDS ── */
+  .writing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem;
+  }
+
+  .writing-card {
+    padding: 1.75rem;
+    background: var(--paper-2);
+    border-left: 3px solid var(--highlight);
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+
+  .writing-card:hover { transform: translateY(-2px); }
+
+  .writing-card.featured {
+    grid-column: 1 / -1;
+    border-left-color: var(--accent);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    background: var(--accent-light);
+  }
+
+  .card-type {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+
+  .card-title {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+  }
+
+  .card-excerpt {
+    font-size: 0.87rem;
+    color: var(--ink-2);
+    line-height: 1.65;
+  }
+
+  .card-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--ink-3);
+    margin-top: 1rem;
+  }
+
+  .skills-box {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 1.25rem 1.5rem;
+  }
+
+  .skills-box-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--ink-3);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .skills-box ul {
+    font-size: 0.85rem;
+    color: var(--ink-2);
+    line-height: 1.75;
+    padding-left: 1.1rem;
+  }
+
+  /* ── ZONING ── */
+  .zoning-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
+    align-items: start;
+    margin-top: 1.5rem;
+  }
+
+  .zoning-text p {
+    font-size: 0.95rem;
+    color: var(--ink-2);
+    margin-bottom: 1rem;
+    line-height: 1.8;
+  }
+
+  .zoning-visual {
+    border: 1px solid var(--rule);
+    padding: 1.5rem;
+    background: var(--paper-2);
+  }
+
+  .viz-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 1rem;
+  }
+
+  .map-placeholder {
+    width: 100%;
+    height: 190px;
+    border: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+    background: var(--paper);
+  }
+
+  .map-grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, var(--rule) 0px, transparent 1px, transparent 20px),
+      repeating-linear-gradient(90deg, var(--rule) 0px, transparent 1px, transparent 20px);
+    opacity: 0.4;
+  }
+
+  .map-block {
+    position: absolute;
+    border: 1.5px solid var(--accent);
+    background: rgba(45, 90, 61, 0.08);
+  }
+
+  .map-block.variance {
+    border-color: var(--highlight);
+    background: rgba(200, 164, 90, 0.1);
+  }
+
+  .map-block.rezoned {
+    border-color: var(--accent-2);
+    background: rgba(139, 69, 19, 0.06);
+  }
+
+  .map-center-label {
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--ink-3);
+  }
+
+  .map-legend {
+    margin-top: 0.85rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--ink-2);
+  }
+
+  .legend-swatch {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    border: 1.5px solid var(--accent);
+    background: rgba(45, 90, 61, 0.08);
+  }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    margin-top: 1rem;
+    position: relative;
+    padding-left: 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    bottom: 2rem;
+    width: 1px;
+    background: var(--rule);
+  }
+
+  .tl-item {
+    display: flex;
+    gap: 1.75rem;
+    margin-bottom: 2.25rem;
+    position: relative;
+  }
+
+  .tl-dot {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: var(--paper);
+    flex-shrink: 0;
+    margin-top: 5px;
+    z-index: 1;
+  }
+
+  .tl-dot.current { background: var(--accent); }
+
+  .tl-dot.target {
+    border-color: var(--highlight);
+    border-style: dashed;
+  }
+
+  .tl-role {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .tl-role.target-role { color: var(--highlight); }
+
+  .tl-arrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--ink-3);
+    margin-left: 0.5rem;
+    letter-spacing: 0.04em;
+  }
+
+  .tl-org {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--accent);
+    margin: 0.2rem 0 0.3rem;
+    letter-spacing: 0.04em;
+  }
+
+  .tl-desc {
+    font-size: 0.88rem;
+    color: var(--ink-2);
+    line-height: 1.65;
+  }
+
+  /* ── NOW ── */
+  .now-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .now-card {
+    padding: 1.35rem;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+  }
+
+  .now-type {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 0.5rem;
+  }
+
+  .now-title {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.35rem;
+    line-height: 1.3;
+  }
+
+  .now-detail {
+    font-size: 0.82rem;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+
+  /* ── CONTACT ── */
+  .contact-band {
+    padding: 4rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-headline {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-btn {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    padding: 0.65rem 1.35rem;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .contact-btn:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    .hero, .writing-card.featured, .zoning-block { grid-template-columns: 1fr; gap: 2rem; }
+    .writing-grid { grid-template-columns: 1fr; }
+    .now-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 2.6rem; }
+    .contact-band { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="site-wrap">
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-name">Your Name — Portfolio</div>
+    <ul class="nav-links">
+      <li>Writing</li>
+      <li>Research</li>
+      <li>Work</li>
+      <li>Now</li>
+      <li>Contact</li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="hero-tag">Practitioner &amp; Researcher</div>
+      <h1>I think<br>in <em>systems</em><br>&amp; ask why.</h1>
+      <button class="hero-cta">See my work ↓</button>
+    </div>
+    <div>
+      <p class="hero-statement">
+        I'm a <strong>Scrum Master and analyst</strong> who can't stop at the surface of a problem. Whether I'm facilitating a sprint or digging through a century of neighborhood land records, I bring the same instinct: <strong>follow the evidence, map the system, communicate what matters.</strong>
+      </p>
+      <p class="hero-statement">
+        I'm moving toward <strong>forward deployed engineering</strong> and <strong>technical product ownership</strong> — roles where deep curiosity and clear thinking are the job.
+      </p>
+      <div class="hero-tags">
+        <span class="tag">Scrum Master</span>
+        <span class="tag">Data Analysis</span>
+        <span class="tag">Historical Research</span>
+        <span class="tag">Systems Thinking</span>
+        <span class="tag">Technical PM</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WRITING -->
+  <section class="section">
+    <div class="section-label">How I think — writing &amp; analysis</div>
+    <div class="writing-grid">
+
+      <div class="writing-card featured">
+        <div>
+          <div class="card-type">Featured Research</div>
+          <div class="card-title">A Century of Decisions: Tracing Zoning Change in [Your Neighborhood]</div>
+          <div class="card-excerpt">How one block's land use history reveals the full arc of urban planning policy — from post-war single-family mandates to present-day density debates. I pulled primary records, mapped parcel histories, and found patterns the official history missed.</div>
+          <div class="card-meta">Independent Research · Ongoing · Maps, primary sources, data</div>
+        </div>
+        <div class="skills-box">
+          <div class="skills-box-label">What this demonstrates</div>
+          <ul>
+            <li>Research design from scratch</li>
+            <li>Primary source navigation</li>
+            <li>Pattern recognition in messy data</li>
+            <li>Writing for a general audience</li>
+            <li>Sustained independent initiative</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="writing-card">
+        <div class="card-type">Workplace Analysis</div>
+        <div class="card-title">What our sprint metrics were actually telling us</div>
+        <div class="card-excerpt">A structured look at six months of velocity and cycle time data — and what it revealed about team dynamics that weren't visible in the standup.</div>
+        <div class="card-meta">Internal analysis · Anonymized</div>
+      </div>
+
+      <div class="writing-card">
+        <div class="card-type">Essay</div>
+        <div class="card-title">On being the person in the room who reads the footnotes</div>
+        <div class="card-excerpt">A short piece on intellectual curiosity as a professional skill — and why going deeper than required is a competitive advantage, not a distraction.</div>
+        <div class="card-meta">Personal essay · 900 words</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ZONING PROJECT -->
+  <section class="section">
+    <div class="section-label">The zoning research project</div>
+    <div class="zoning-block">
+      <div>
+        <h2>When I got curious about my neighborhood, I built a research project.</h2>
+        <div style="height: 1rem;"></div>
+        <p>Most people wonder why their block looks the way it does. I decided to find out. I pulled parcel records, variance filings, city council minutes, and historical maps — stitching together a story that spans generations of policy and people.</p>
+        <p>This project has no professional mandate. It's pure inquiry. Which is exactly the point: I research because I can't not.</p>
+        <p>The process taught me how to navigate bureaucratic archives, reconcile conflicting records, and turn a jumble of primary sources into a coherent narrative. That's a portable skill set.</p>
+      </div>
+      <div class="zoning-visual">
+        <div class="viz-label">Parcel change map — [your neighborhood]</div>
+        <div class="map-placeholder">
+          <div class="map-grid-lines"></div>
+          <div class="map-block" style="left: 10%; top: 8%; width: 28%; height: 38%;"></div>
+          <div class="map-block variance" style="left: 40%; top: 8%; width: 20%; height: 24%;"></div>
+          <div class="map-block" style="left: 62%; top: 8%; width: 24%; height: 38%;"></div>
+          <div class="map-block rezoned" style="left: 10%; top: 50%; width: 50%; height: 38%;"></div>
+          <div class="map-block" style="left: 62%; top: 50%; width: 24%; height: 38%;"></div>
+          <div class="map-center-label">Replace with your actual map</div>
+        </div>
+        <div class="map-legend">
+          <div class="legend-item">
+            <div class="legend-swatch"></div>
+            Zoned R-1
+          </div>
+          <div class="legend-item">
+            <div class="legend-swatch" style="border-color: var(--highlight); background: rgba(200,164,90,0.1);"></div>
+            Variance granted
+          </div>
+          <div class="legend-item">
+            <div class="legend-swatch" style="border-color: var(--accent-2); background: rgba(139,69,19,0.06);"></div>
+            Rezoned post-2000
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="section">
+    <div class="section-label">Work history — the arc</div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div>
+          <div class="tl-role">Analyst <span class="tl-arrow">· [Your company]</span></div>
+          <div class="tl-org">[Years]</div>
+          <div class="tl-desc">Structured data, surfaced insights, and translated findings for non-technical stakeholders. Built the habit of asking what the numbers were actually saying — not just what they showed.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot current"></div>
+        <div>
+          <div class="tl-role">Scrum Master <span class="tl-arrow">· Current</span></div>
+          <div class="tl-org">[Your company] · [Year – present]</div>
+          <div class="tl-desc">Facilitate team delivery, remove blockers, run retrospectives, track metrics. Sitting at the intersection of process, people, and product — which is exactly where I want to be, just closer to the technical edge.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot target"></div>
+        <div>
+          <div class="tl-role target-role">Forward Deployed Engineer / Technical PM <span class="tl-arrow">· Target</span></div>
+          <div class="tl-org" style="color: var(--highlight);">What I'm building toward</div>
+          <div class="tl-desc">The role where systems thinking, writing, curiosity, and technical fluency converge. I want to be in the field, working directly with users to solve problems with real constraints.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- NOW -->
+  <section class="section">
+    <div class="section-label">Now — what I'm learning &amp; reading</div>
+    <div class="now-grid">
+      <div class="now-card">
+        <div class="now-type">Reading</div>
+        <div class="now-title">[Book or article title]</div>
+        <div class="now-detail">A note on why you're reading it and what you're pulling from it. 1–2 sentences is plenty.</div>
+      </div>
+      <div class="now-card">
+        <div class="now-type">Learning</div>
+        <div class="now-title">[Skill or topic]</div>
+        <div class="now-detail">What problem or curiosity is driving this. What you're hoping to understand or build.</div>
+      </div>
+      <div class="now-card">
+        <div class="now-type">Thinking about</div>
+        <div class="now-title">[An open question]</div>
+        <div class="now-detail">The question you keep returning to. Could be professional, civic, or entirely personal.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <div class="contact-band">
+    <div class="contact-headline">Let's think together.</div>
+    <div class="contact-links">
+      <button class="contact-btn">LinkedIn</button>
+      <button class="contact-btn">Email me</button>
+      <button class="contact-btn">Download résumé</button>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 Your Name</span>
+    <span>Curiosity-driven. Evidence-based. Always reading.</span>
+  </footer>
+
+</div>
+</body>
+</html>
