@@ -135,6 +135,20 @@
 
   .hero-cta:hover { background: var(--accent); }
 
+  .profile-photo-wrap {
+    margin-bottom: 1.75rem;
+  }
+
+  .profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--rule);
+    background: var(--paper-2);
+    display: block;
+  }
+
   .hero-statement {
     font-size: 1.05rem;
     line-height: 1.85;
@@ -570,6 +584,9 @@
       <button class="hero-cta">See my work ↓</button>
     </div>
     <div>
+      <div class="profile-photo-wrap">
+        <img src="images/profile.jpg" alt="Keelan Sears" class="profile-photo">
+      </div>
       <p class="hero-statement">
         I'm a <strong>Scrum Master and analyst</strong> who can't stop at the surface of a problem. Whether I'm facilitating a sprint or digging through a century of neighborhood land records, I bring the same instinct: <strong>follow the evidence, map the system, communicate what matters.</strong>
       </p>
