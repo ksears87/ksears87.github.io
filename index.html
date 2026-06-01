@@ -818,7 +818,7 @@
       <h2 class="modal-title">Get in touch</h2>
       <form id="contact-form" action="https://formspree.io/f/xaqkgrbl" method="POST">
         <label class="form-label">Name<input class="form-input" type="text" name="name" required></label>
-        <label class="form-label">Email<input class="form-input" type="email" name="_replyto" required></label>
+        <label class="form-label">Email<input class="form-input" type="email" name="email" required></label>
         <label class="form-label">Message<textarea class="form-input" name="message" rows="5" required></textarea></label>
         <button class="contact-btn" type="submit">Send</button>
         <p class="form-status" id="form-status"></p>
@@ -871,8 +871,8 @@
     try {
       const res = await fetch(contactForm.action, {
         method: 'POST',
-        body: new FormData(contactForm),
-        headers: { Accept: 'application/json' }
+        body: JSON.stringify(Object.fromEntries(new FormData(contactForm))),
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
       });
       if (res.ok) {
         formStatus.textContent = 'Message sent — thank you!';
