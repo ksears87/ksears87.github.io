@@ -24,6 +24,8 @@
     --font-sans: 'Epilogue', sans-serif;
   }
 
+  html { scroll-behavior: smooth; }
+
   body {
     background: var(--paper);
     color: var(--ink);
@@ -69,6 +71,8 @@
 
   .nav-links li { cursor: pointer; transition: color 0.15s; }
   .nav-links li:hover { color: var(--accent); }
+  .nav-links a { color: inherit; text-decoration: none; }
+  .nav-links li.active { color: var(--accent); }
 
   /* ── HERO ── */
   .hero {
@@ -568,11 +572,11 @@
   <nav>
     <div class="nav-name">Keelan Sears — Portfolio</div>
     <ul class="nav-links">
-      <li>Writing</li>
-      <li>Research</li>
-      <li>Work</li>
-      <li>Now</li>
-      <li>Contact</li>
+      <li><a href="#writing">Writing</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#now">Now</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
@@ -604,7 +608,7 @@
   </section>
 
   <!-- WRITING -->
-  <section class="section">
+  <section id="writing" class="section">
     <div class="section-label">How I think — writing &amp; analysis</div>
     <div class="writing-grid">
 
@@ -645,7 +649,7 @@
   </section>
 
   <!-- ZONING PROJECT -->
-  <section class="section">
+  <section id="research" class="section">
     <div class="section-label">The zoning research project</div>
     <div class="zoning-block">
       <div>
@@ -685,7 +689,7 @@
   </section>
 
   <!-- TIMELINE -->
-  <section class="section">
+  <section id="work" class="section">
     <div class="section-label">Work history — the arc</div>
     <div class="timeline">
 
@@ -720,7 +724,7 @@
   </section>
 
   <!-- NOW -->
-  <section class="section">
+  <section id="now" class="section">
     <div class="section-label">Now — what I'm learning &amp; reading</div>
     <div class="now-grid">
       <div class="now-card">
@@ -747,7 +751,7 @@
   </section>
 
   <!-- CONTACT -->
-  <div class="contact-band">
+  <div id="contact" class="contact-band">
     <div class="contact-headline">Let's innovate together.</div>
     <div class="contact-links">
       <button class="contact-btn">LinkedIn</button>
@@ -762,5 +766,19 @@
   </footer>
 
 </div>
+<script>
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const navItems = document.querySelectorAll('.nav-links li');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navItems.forEach(li => li.classList.remove('active'));
+        const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+        if (active) active.parentElement.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => observer.observe(s));
+</script>
 </body>
 </html>
