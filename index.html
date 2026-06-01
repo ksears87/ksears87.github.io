@@ -556,6 +556,40 @@
     color: var(--paper);
   }
 
+  /* ── CONTACT MODAL ── */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000;
+  }
+  .modal-overlay[hidden] { display: none; }
+  .modal-box {
+    background: var(--paper); border: 1px solid var(--ink);
+    padding: 2.5rem; width: min(90vw, 480px);
+    position: relative;
+  }
+  .modal-close {
+    position: absolute; top: 1rem; right: 1.2rem;
+    background: none; border: none; font-size: 1.4rem;
+    cursor: pointer; color: var(--ink);
+  }
+  .modal-title {
+    font-family: var(--font-serif); font-size: 1.4rem;
+    font-weight: 700; margin-bottom: 1.5rem;
+  }
+  .form-label {
+    display: flex; flex-direction: column;
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.06em; gap: 0.3rem; margin-bottom: 1rem;
+  }
+  .form-input {
+    font-family: var(--font-mono); font-size: 12px;
+    border: 1px solid var(--ink); background: transparent;
+    padding: 0.5rem 0.6rem; color: var(--ink); resize: vertical;
+  }
+  .form-status { font-family: var(--font-mono); font-size: 11px; margin-top: 0.75rem; min-height: 1em; }
+
   /* ── FOOTER ── */
   footer {
     padding: 1.5rem 0;
@@ -772,9 +806,23 @@
   <div id="contact" class="contact-band">
     <div class="contact-headline">Let's innovate together.</div>
     <div class="contact-links">
-      <button class="contact-btn">LinkedIn</button>
-      <button class="contact-btn">Email me</button>
-      <button class="contact-btn">Download résumé</button>
+      <a href="https://www.linkedin.com/in/keelan-sears-49459a4a/" target="_blank" rel="noopener noreferrer" class="contact-btn">LinkedIn</a>
+      <button class="contact-btn" id="open-contact-modal">Email me</button>
+      <a href="resume.pdf" download class="contact-btn">Download résumé</a>
+    </div>
+  </div>
+
+  <div id="contact-modal" class="modal-overlay" hidden>
+    <div class="modal-box">
+      <button class="modal-close" id="close-contact-modal" aria-label="Close">×</button>
+      <h2 class="modal-title">Get in touch</h2>
+      <form id="contact-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+        <label class="form-label">Name<input class="form-input" type="text" name="name" required></label>
+        <label class="form-label">Email<input class="form-input" type="email" name="_replyto" required></label>
+        <label class="form-label">Message<textarea class="form-input" name="message" rows="5" required></textarea></label>
+        <button class="contact-btn" type="submit">Send</button>
+        <p class="form-status" id="form-status"></p>
+      </form>
     </div>
   </div>
 
@@ -800,6 +848,43 @@
   window.addEventListener('scroll', () => {
     if (window.scrollY < 100) navItems.forEach(li => li.classList.remove('active'));
   }, { passive: true });
+
+  const modal = document.getElementById('contact-modal');
+  const openBtn = document.getElementById('open-contact-modal');
+  const closeBtn = document.getElementById('close-contact-modal');
+  const contactForm = document.getElementById('contact-form');
+  const formStatus = document.getElementById('form-status');
+
+  function openModal() { modal.removeAttribute('hidden'); document.body.style.overflow = 'hidden'; }
+  function closeModal() { modal.setAttribute('hidden', ''); document.body.style.overflow = ''; formStatus.textContent = ''; }
+
+  openBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hasAttribute('hidden')) closeModal(); });
+
+  contactForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const submitBtn = contactForm.querySelector('[type="submit"]');
+    submitBtn.disabled = true;
+    formStatus.textContent = 'Sending…';
+    try {
+      const res = await fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { Accept: 'application/json' }
+      });
+      if (res.ok) {
+        formStatus.textContent = 'Message sent — thank you!';
+        contactForm.reset();
+      } else {
+        formStatus.textContent = 'Something went wrong. Please try again.';
+      }
+    } catch {
+      formStatus.textContent = 'Network error. Please try again.';
+    }
+    submitBtn.disabled = false;
+  });
 </script>
 </body>
 </html>
