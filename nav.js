@@ -24,8 +24,10 @@
     const dist = targetY - startY;
     if (Math.abs(dist) < 2) return;
     if (reduceMotion) { window.scrollTo(0, targetY); return; }
-    // Scale duration to distance but keep it expedient (450–900ms).
-    const duration = Math.min(900, Math.max(450, Math.abs(dist) * 0.5));
+    // Scale duration sub-linearly (sqrt) so nearby targets travel at a
+    // slower per-pixel speed than far ones — closer feels grounded, not
+    // snappy — then clamp (495–990ms, ~10% slower than before).
+    const duration = Math.min(990, Math.max(495, Math.sqrt(Math.abs(dist)) * 23));
     let start;
     function step(ts) {
       if (start === undefined) start = ts;
