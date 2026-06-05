@@ -702,24 +702,11 @@
     .nav-name { white-space: nowrap; }
     .nav-links { width: 100%; flex-wrap: wrap; gap: 0.75rem 1.25rem; }
 
-    /* Nav dropdown: expand inline, not as a popup */
+    /* Nav dropdown: float as an overlay card (same as desktop), so opening
+       it doesn't grow the sticky nav and shift the page down */
     .nav-dropdown .dropdown {
-      position: static;
-      box-shadow: none;
-      border: none;
-      border-left: 2px solid var(--rule);
-      padding: 0.25rem 0 0.25rem 0.75rem;
-      margin-top: 0.4rem;
-      min-width: 0;
-      background: transparent;
+      max-width: calc(100vw - 2.5rem);
     }
-    .nav-dropdown .dropdown li a,
-    .nav-dropdown .dropdown li button {
-      padding: 0.35rem 0;
-      color: var(--ink-3);
-      text-transform: none;
-    }
-    .nav-dropdown.align-right .dropdown { right: auto; }
 
     /* Hero: collapse grid, photo floats right beside intro text */
     .hero { grid-template-columns: 1fr; gap: 1.5rem; padding: 2.5rem 0 3rem; }
