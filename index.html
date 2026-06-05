@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Keelan Sears — Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&family=Epilogue:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body>
 <div class="site-wrap">
@@ -19,15 +19,24 @@
           <summary>Writing</summary>
           <ul class="dropdown">
             <li><a href="#writing">Overview</a></li>
-            <li><a href="century-of-decisions.html">A Century of Decisions</a></li>
-            <li><a href="expense-management.html">Optimizing Expense Management Systems</a></li>
-            <li><a href="reading-the-footnotes.html">On Reading the Footnotes</a></li>
+            <li><a href="century-of-decisions.html">A Century of Decisions<span class="dropdown-tag personal">Personal</span></a></li>
+            <li><a href="expense-management.html">Optimizing Expense Management Systems<span class="dropdown-tag work">Work</span></a></li>
+            <li><a href="reading-the-footnotes.html">On Reading the Footnotes<span class="dropdown-tag personal">Personal</span></a></li>
           </ul>
         </details>
       </li>
-      <li><a href="#work">Work</a></li>
+      <li><a href="#work">Work History</a></li>
       <li><a href="#now">Now</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li class="nav-dropdown-li">
+        <details class="nav-dropdown align-right">
+          <summary>Contact</summary>
+          <ul class="dropdown">
+            <li><a href="https://www.linkedin.com/in/keelan-sears-49459a4a/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            <li><button type="button" data-open-contact>Email me</button></li>
+            <li><a href="resume.pdf" download>Download résumé</a></li>
+          </ul>
+        </details>
+      </li>
     </ul>
   </nav>
 
@@ -36,7 +45,7 @@
     <div>
       <div class="hero-tag">Practitioner &amp; Researcher</div>
       <h1><em>Curious</em> by default.<br><em>Tenacious</em> by design.</h1>
-      <button class="hero-cta">See my work ↓</button>
+      <a href="#writing" class="hero-cta">See my work ↓</a>
     </div>
     <div>
       <div class="profile-photo-wrap">
@@ -65,6 +74,7 @@
 
       <div class="writing-card featured">
         <div>
+          <span class="card-tag personal">Personal</span>
           <div class="card-type">Featured Research</div>
           <div class="card-title">A Century of Decisions: Turning a Tricky Situation into a Valuable Asset</div>
           <div class="card-excerpt">Faced with a compliance letter and no background in real estate law, I taught myself Denver's zoning code, tracked down primary records across multiple archives, and built the case from scratch — finding patterns that trained professionals had overlooked for decades.</div>
@@ -84,6 +94,7 @@
       </div>
 
       <div class="writing-card">
+        <span class="card-tag work">Work</span>
         <div class="card-type">Workplace Analysis</div>
         <div class="card-title">Optimizing Expense Management Systems</div>
         <div class="card-excerpt">The value of employee time, and maximizing returns using mechanisms that we're all comfortable with - credit card rebates.</div>
@@ -91,7 +102,8 @@
         <a href="expense-management.html" class="card-link">Read the full piece →</a>
       </div>
 
-      <div class="writing-card">
+      <div class="writing-card personal">
+        <span class="card-tag personal">Personal</span>
         <div class="card-type">Essay</div>
         <div class="card-title">On being the person in the room who reads the footnotes</div>
         <div class="card-excerpt">A short piece on intellectual curiosity as a professional skill — and why going deeper than required is a competitive advantage, not a distraction.</div>
@@ -172,6 +184,11 @@
         <div class="now-title">Disruptive Technologies</div>
         <div class="now-detail">Model Context Protocol.. Electric Vertical Takeoff or Landing Vehicles (EVTOL's).. Blockchain.. There are many new technologies that have the potential to quickly change our society through decentralization.</div>
       </div>
+      <div class="now-card">
+        <div class="now-type">Thinking about</div>
+        <div class="now-title">Finding my next role</div>
+        <div class="now-detail">I'm ready to bring my innovative and creative side to a Product Owner or Forward Deployed Engineer role. What draws me to these positions is the full cycle: doing the business analysis to find where value hides, then staying in the room to make those ideas real.</div>
+      </div>
     </div>
     <a href="#" class="back-to-top">↑ Top</a>
   </section>
@@ -181,22 +198,8 @@
     <div class="contact-headline">Let's innovate together.</div>
     <div class="contact-links">
       <a href="https://www.linkedin.com/in/keelan-sears-49459a4a/" target="_blank" rel="noopener noreferrer" class="contact-btn">LinkedIn</a>
-      <button class="contact-btn" id="open-contact-modal">Email me</button>
+      <button class="contact-btn" data-open-contact>Email me</button>
       <a href="resume.pdf" download class="contact-btn">Download résumé</a>
-    </div>
-  </div>
-
-  <div id="contact-modal" class="modal-overlay" hidden>
-    <div class="modal-box">
-      <button class="modal-close" id="close-contact-modal" aria-label="Close">×</button>
-      <h2 class="modal-title">Get in touch</h2>
-      <form id="contact-form" action="https://formspree.io/f/xaqkgrbl" method="POST">
-        <label class="form-label">Name<input class="form-input" type="text" name="name" required></label>
-        <label class="form-label">Email<input class="form-input" type="email" name="email" required></label>
-        <label class="form-label">Message<textarea class="form-input" name="message" rows="5" required></textarea></label>
-        <button class="contact-btn" type="submit">Send</button>
-        <p class="form-status" id="form-status"></p>
-      </form>
     </div>
   </div>
 
@@ -206,59 +209,6 @@
   </footer>
 
 </div>
-<script>
-  const sections = document.querySelectorAll('section[id], div[id]');
-  const navItems = document.querySelectorAll('.nav-links li');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        navItems.forEach(li => li.classList.remove('active'));
-        const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
-        if (active) active.closest('.nav-links > li').classList.add('active');
-      }
-    });
-  }, { threshold: 0.3 });
-  sections.forEach(s => observer.observe(s));
-  window.addEventListener('scroll', () => {
-    if (window.scrollY < 100) navItems.forEach(li => li.classList.remove('active'));
-  }, { passive: true });
-
-  const modal = document.getElementById('contact-modal');
-  const openBtn = document.getElementById('open-contact-modal');
-  const closeBtn = document.getElementById('close-contact-modal');
-  const contactForm = document.getElementById('contact-form');
-  const formStatus = document.getElementById('form-status');
-
-  function openModal() { modal.removeAttribute('hidden'); document.body.style.overflow = 'hidden'; }
-  function closeModal() { modal.setAttribute('hidden', ''); document.body.style.overflow = ''; formStatus.textContent = ''; }
-
-  openBtn.addEventListener('click', openModal);
-  closeBtn.addEventListener('click', closeModal);
-  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hasAttribute('hidden')) closeModal(); });
-
-  contactForm.addEventListener('submit', async e => {
-    e.preventDefault();
-    const submitBtn = contactForm.querySelector('[type="submit"]');
-    submitBtn.disabled = true;
-    formStatus.textContent = 'Sending…';
-    try {
-      const res = await fetch(contactForm.action, {
-        method: 'POST',
-        body: JSON.stringify(Object.fromEntries(new FormData(contactForm))),
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-      });
-      if (res.ok) {
-        formStatus.textContent = 'Message sent — thank you for reaching out! -Keelan';
-        contactForm.reset();
-      } else {
-        formStatus.textContent = 'Something went wrong. Please try again.';
-      }
-    } catch {
-      formStatus.textContent = 'Network error. Please try again.';
-    }
-    submitBtn.disabled = false;
-  });
-</script>
+<script src="nav.js?v=8"></script>
 </body>
 </html>

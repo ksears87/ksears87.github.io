@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Optimizing Expense Management Systems — Keelan Sears</title>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&family=Epilogue:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body>
 <div class="site-wrap">
@@ -19,15 +19,24 @@
           <summary>Writing</summary>
           <ul class="dropdown">
             <li><a href="index.html#writing">Overview</a></li>
-            <li><a href="century-of-decisions.html">A Century of Decisions</a></li>
-            <li><a href="expense-management.html">Optimizing Expense Management Systems</a></li>
-            <li><a href="reading-the-footnotes.html">On Reading the Footnotes</a></li>
+            <li><a href="century-of-decisions.html">A Century of Decisions<span class="dropdown-tag personal">Personal</span></a></li>
+            <li><a href="expense-management.html">Optimizing Expense Management Systems<span class="dropdown-tag work">Work</span></a></li>
+            <li><a href="reading-the-footnotes.html">On Reading the Footnotes<span class="dropdown-tag personal">Personal</span></a></li>
           </ul>
         </details>
       </li>
-      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#work">Work History</a></li>
       <li><a href="index.html#now">Now</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
+      <li class="nav-dropdown-li">
+        <details class="nav-dropdown align-right">
+          <summary>Contact</summary>
+          <ul class="dropdown">
+            <li><a href="https://www.linkedin.com/in/keelan-sears-49459a4a/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            <li><button type="button" data-open-contact>Email me</button></li>
+            <li><a href="resume.pdf" download>Download résumé</a></li>
+          </ul>
+        </details>
+      </li>
     </ul>
   </nav>
 
@@ -47,5 +56,6 @@
   </footer>
 
 </div>
+<script src="nav.js?v=8"></script>
 </body>
 </html>
