@@ -16,7 +16,8 @@
     --font-sans: 'Epilogue', sans-serif;
   }
 
-  html { scroll-behavior: smooth; }
+  /* Scroll animation is handled by nav.js (custom easing); keep CSS out of it. */
+  html { scroll-behavior: auto; }
 
   body {
     background: var(--paper);

@@ -11,6 +11,47 @@
   dropdowns.forEach(d => d.querySelectorAll('a').forEach(a =>
     a.addEventListener('click', () => d.removeAttribute('open'))));
 
+  // ── Custom smooth scrolling for in-page anchors (all pages) ──
+  // easeInOutCubic — gentle acceleration in, gentle deceleration out.
+  const ease = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const nav = document.querySelector('nav');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const navOffset = () => (nav ? nav.offsetHeight + 12 : 0);
+
+  function smoothScrollTo(targetY) {
+    targetY = Math.max(0, targetY);
+    const startY = window.scrollY;
+    const dist = targetY - startY;
+    if (Math.abs(dist) < 2) return;
+    if (reduceMotion) { window.scrollTo(0, targetY); return; }
+    // Scale duration to distance but keep it expedient (450–900ms).
+    const duration = Math.min(900, Math.max(450, Math.abs(dist) * 0.5));
+    let start;
+    function step(ts) {
+      if (start === undefined) start = ts;
+      const t = Math.min(1, (ts - start) / duration);
+      window.scrollTo(0, startY + dist * ease(t));
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a[href^="#"]');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    let targetY = 0;
+    if (href !== '#') {
+      const el = document.getElementById(decodeURIComponent(href.slice(1)));
+      if (!el) return; // no matching target — let the browser handle it
+      targetY = el.getBoundingClientRect().top + window.scrollY - navOffset();
+    }
+    e.preventDefault();
+    dropdowns.forEach(d => d.removeAttribute('open'));
+    smoothScrollTo(targetY);
+    history.pushState(null, '', href === '#' ? location.pathname + location.search : href);
+  });
+
   // ── Nav highlight on scroll (homepage; harmless elsewhere) ──
   const sections = document.querySelectorAll('section[id], div[id]');
   const navItems = document.querySelectorAll('.nav-links li');
