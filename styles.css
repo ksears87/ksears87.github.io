@@ -39,6 +39,10 @@
     align-items: center;
     padding: 1.75rem 0;
     border-bottom: 1px solid var(--rule);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--paper);
   }
 
   .nav-name {
@@ -235,7 +239,10 @@
   .section {
     padding: 4.5rem 0;
     border-bottom: 1px solid var(--rule);
+    scroll-margin-top: 5.5rem;
   }
+
+  .contact-band { scroll-margin-top: 5.5rem; }
 
   .section-label {
     font-family: var(--font-mono);
@@ -738,6 +745,7 @@
     /* Typography & sections */
     h1 { font-size: 2.4rem; }
     .section { padding: 3rem 0; }
+    .section, .contact-band { scroll-margin-top: 7rem; }
     .writing-grid { grid-template-columns: 1fr; }
     .now-grid { grid-template-columns: 1fr; }
     .contact-band { flex-direction: column; align-items: flex-start; }
