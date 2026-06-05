@@ -27,7 +27,16 @@
       </li>
       <li><a href="#work">Work History</a></li>
       <li><a href="#now">Now</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li class="nav-dropdown-li">
+        <details class="nav-dropdown align-right">
+          <summary>Contact</summary>
+          <ul class="dropdown">
+            <li><a href="https://www.linkedin.com/in/keelan-sears-49459a4a/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            <li><button type="button" data-open-contact>Email me</button></li>
+            <li><a href="resume.pdf" download>Download résumé</a></li>
+          </ul>
+        </details>
+      </li>
     </ul>
   </nav>
 
@@ -189,22 +198,8 @@
     <div class="contact-headline">Let's innovate together.</div>
     <div class="contact-links">
       <a href="https://www.linkedin.com/in/keelan-sears-49459a4a/" target="_blank" rel="noopener noreferrer" class="contact-btn">LinkedIn</a>
-      <button class="contact-btn" id="open-contact-modal">Email me</button>
+      <button class="contact-btn" data-open-contact>Email me</button>
       <a href="resume.pdf" download class="contact-btn">Download résumé</a>
-    </div>
-  </div>
-
-  <div id="contact-modal" class="modal-overlay" hidden>
-    <div class="modal-box">
-      <button class="modal-close" id="close-contact-modal" aria-label="Close">×</button>
-      <h2 class="modal-title">Get in touch</h2>
-      <form id="contact-form" action="https://formspree.io/f/xaqkgrbl" method="POST">
-        <label class="form-label">Name<input class="form-input" type="text" name="name" required></label>
-        <label class="form-label">Email<input class="form-input" type="email" name="email" required></label>
-        <label class="form-label">Message<textarea class="form-input" name="message" rows="5" required></textarea></label>
-        <button class="contact-btn" type="submit">Send</button>
-        <p class="form-status" id="form-status"></p>
-      </form>
     </div>
   </div>
 
@@ -214,59 +209,6 @@
   </footer>
 
 </div>
-<script>
-  const sections = document.querySelectorAll('section[id], div[id]');
-  const navItems = document.querySelectorAll('.nav-links li');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        navItems.forEach(li => li.classList.remove('active'));
-        const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
-        if (active) active.closest('.nav-links > li').classList.add('active');
-      }
-    });
-  }, { threshold: 0.3 });
-  sections.forEach(s => observer.observe(s));
-  window.addEventListener('scroll', () => {
-    if (window.scrollY < 100) navItems.forEach(li => li.classList.remove('active'));
-  }, { passive: true });
-
-  const modal = document.getElementById('contact-modal');
-  const openBtn = document.getElementById('open-contact-modal');
-  const closeBtn = document.getElementById('close-contact-modal');
-  const contactForm = document.getElementById('contact-form');
-  const formStatus = document.getElementById('form-status');
-
-  function openModal() { modal.removeAttribute('hidden'); document.body.style.overflow = 'hidden'; }
-  function closeModal() { modal.setAttribute('hidden', ''); document.body.style.overflow = ''; formStatus.textContent = ''; }
-
-  openBtn.addEventListener('click', openModal);
-  closeBtn.addEventListener('click', closeModal);
-  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hasAttribute('hidden')) closeModal(); });
-
-  contactForm.addEventListener('submit', async e => {
-    e.preventDefault();
-    const submitBtn = contactForm.querySelector('[type="submit"]');
-    submitBtn.disabled = true;
-    formStatus.textContent = 'Sending…';
-    try {
-      const res = await fetch(contactForm.action, {
-        method: 'POST',
-        body: JSON.stringify(Object.fromEntries(new FormData(contactForm))),
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-      });
-      if (res.ok) {
-        formStatus.textContent = 'Message sent — thank you for reaching out! -Keelan';
-        contactForm.reset();
-      } else {
-        formStatus.textContent = 'Something went wrong. Please try again.';
-      }
-    } catch {
-      formStatus.textContent = 'Network error. Please try again.';
-    }
-    submitBtn.disabled = false;
-  });
-</script>
+<script src="nav.js"></script>
 </body>
 </html>

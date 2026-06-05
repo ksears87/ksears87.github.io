@@ -97,8 +97,14 @@
     box-shadow: 0 4px 16px rgba(0,0,0,0.07);
   }
 
-  .nav-dropdown .dropdown li a {
+  .nav-dropdown .dropdown li a,
+  .nav-dropdown .dropdown li button {
     display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
     padding: 0.55rem 1rem;
     font-size: 11px;
     letter-spacing: 0.06em;
@@ -107,10 +113,13 @@
     color: var(--ink-2);
     transition: background 0.1s, color 0.1s;
   }
-  .nav-dropdown .dropdown li a:hover {
+  .nav-dropdown .dropdown li a:hover,
+  .nav-dropdown .dropdown li button:hover {
     color: var(--accent);
     background: var(--accent-light);
   }
+
+  .nav-dropdown.align-right .dropdown { left: auto; right: -1rem; }
 
   /* ── HERO ── */
   .hero {
@@ -199,6 +208,7 @@
   }
 
   .hero-statement strong { color: var(--ink); font-weight: 700; }
+  .hero-statement em { font-size: 1.06em; }
 
   .hero-tags {
     display: flex;
@@ -702,11 +712,13 @@
       min-width: 0;
       background: transparent;
     }
-    .nav-dropdown .dropdown li a {
+    .nav-dropdown .dropdown li a,
+    .nav-dropdown .dropdown li button {
       padding: 0.35rem 0;
       color: var(--ink-3);
       text-transform: none;
     }
+    .nav-dropdown.align-right .dropdown { right: auto; }
 
     /* Hero: collapse grid, photo floats right beside intro text */
     .hero { grid-template-columns: 1fr; gap: 1.5rem; padding: 2.5rem 0 3rem; }
