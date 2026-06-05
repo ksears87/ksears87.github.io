@@ -19,6 +19,8 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           navItems.forEach(li => li.classList.remove('active'));
+          // Near the top (hero in view) nothing should be active.
+          if (window.scrollY < 100) return;
           const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
           if (active) {
             const topLi = active.closest('.nav-links > li');

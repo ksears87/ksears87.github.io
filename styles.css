@@ -643,6 +643,10 @@
     transition: all 0.15s;
   }
 
+  /* Keep the band's anchor + button triggers visually identical (buttons
+     don't pick up the default link underline). */
+  .contact-band .contact-btn { text-decoration: underline; }
+
   .contact-btn:hover {
     background: var(--ink);
     color: var(--paper);
