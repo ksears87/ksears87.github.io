@@ -139,27 +139,6 @@
     border-bottom: 1px solid var(--rule);
   }
 
-  .hero-tag {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.75rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .hero-tag::before {
-    content: '';
-    display: block;
-    width: 28px;
-    height: 1px;
-    background: var(--accent);
-  }
-
   h1 {
     font-family: var(--font-serif);
     font-size: 3.6rem;
