@@ -139,27 +139,6 @@
     border-bottom: 1px solid var(--rule);
   }
 
-  .hero-tag {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.75rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .hero-tag::before {
-    content: '';
-    display: block;
-    width: 28px;
-    height: 1px;
-    background: var(--accent);
-  }
-
   h1 {
     font-family: var(--font-serif);
     font-size: 3.6rem;
@@ -723,24 +702,11 @@
     .nav-name { white-space: nowrap; }
     .nav-links { width: 100%; flex-wrap: wrap; gap: 0.75rem 1.25rem; }
 
-    /* Nav dropdown: expand inline, not as a popup */
+    /* Nav dropdown: float as an overlay card (same as desktop), so opening
+       it doesn't grow the sticky nav and shift the page down */
     .nav-dropdown .dropdown {
-      position: static;
-      box-shadow: none;
-      border: none;
-      border-left: 2px solid var(--rule);
-      padding: 0.25rem 0 0.25rem 0.75rem;
-      margin-top: 0.4rem;
-      min-width: 0;
-      background: transparent;
+      max-width: calc(100vw - 2.5rem);
     }
-    .nav-dropdown .dropdown li a,
-    .nav-dropdown .dropdown li button {
-      padding: 0.35rem 0;
-      color: var(--ink-3);
-      text-transform: none;
-    }
-    .nav-dropdown.align-right .dropdown { right: auto; }
 
     /* Hero: collapse grid, photo floats right beside intro text */
     .hero { grid-template-columns: 1fr; gap: 1.5rem; padding: 2.5rem 0 3rem; }
@@ -771,6 +737,22 @@
   }
 
   .article-body h2 { margin-bottom: 1.5rem; }
+
+  .article-banner {
+    display: block;
+    width: 100%;
+    margin: 1.5rem 0 2rem;
+    border: 1px solid var(--rule);
+  }
+
+  .article-body h3 {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.4;
+    margin: 2.25rem 0 0.9rem;
+  }
 
   .back-link {
     display: inline-block;
