@@ -46,7 +46,7 @@
     ball: 'ball.png',
     texture: 'paper.avif',
     sound: 'crumple.mp3',
-    duration: 900,       // ms, full crumple + toss
+    duration: 1400,       // ms, full crumple + toss
     contentScale: 0.32,  // how small the page content crushes down inside the ball
     ballW: 84,           // on-screen ball size (px) — keep the 84:74 ratio of the photo
     ballH: 74,
