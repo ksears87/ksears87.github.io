@@ -241,7 +241,15 @@
           dst.innerHTML = src.innerHTML;
           if (doc.title) document.title = doc.title;
           history.pushState({ crumple: true }, '', href);
-          window.scrollTo(0, 0);
+          // reveal the swapped-in page at the right spot: honor a #hash target
+          // (e.g. an article's "Work History" link -> index.html#work), else top
+          var hash = '';
+          try { hash = new URL(href, location.href).hash; } catch (e) {}
+          var target = hash ? document.getElementById(decodeURIComponent(hash.slice(1))) : null;
+          if (target) target.scrollIntoView();
+          else window.scrollTo(0, 0);
+          // let shared scripts (nav.js) re-bind behavior tied to the new content
+          try { window.dispatchEvent(new CustomEvent('crumple:swapped')); } catch (e) {}
           return true;
         }
         return false;
