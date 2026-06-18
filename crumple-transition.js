@@ -51,7 +51,8 @@
     ballW: 84,           // on-screen ball size (px) — keep the 84:74 ratio of the photo
     ballH: 74,
     swap: 'reload',      // 'reload' (normal nav) OR a CSS selector for seamless content swap
-    enableSound: true
+    enableSound: true,
+    lite: 'auto'         // drop the GPU-heavy SVG warp filter: 'auto' (touch devices), 'on', 'off'
   };
 
   /* ---- ball.png outline: 26 angle-samples as px offsets from its centroid
@@ -63,7 +64,20 @@
   var lerp = function (a, b, t) { return a + (b - a) * t; };
   var easeInOut = function (t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; };
 
-  var dom = null, crumpleAudio = null, animating = false, fold = null, turbSeed = 0;
+  var dom = null, crumpleAudio = null, animating = false, fold = null, turbSeed = 0, lite = false;
+
+  /* The per-frame SVG warp filter (feTurbulence + feDisplacementMap) is applied
+     to a full-page snapshot and re-seeded every frame — by far the most
+     expensive part of the animation, and it's frequently CPU-rasterized on
+     mobile, where a high devicePixelRatio multiplies the cost. On touch devices
+     we skip it: the clip-path crush, toss, texture and sound (all
+     compositor-cheap) still play, just without the pixel-melt crinkle. */
+  function shouldLite() {
+    if (CFG.lite === 'on' || CFG.lite === true) return true;
+    if (CFG.lite === 'off' || CFG.lite === false) return false;
+    return !!(window.matchMedia &&
+      window.matchMedia('(hover: none) and (pointer: coarse)').matches);
+  }
 
   function asset(p) {
     if (/^(https?:)?\/\//.test(p) || p.charAt(0) === '/') return p;
@@ -185,11 +199,16 @@
     dom.outer.style.opacity = (1 - f).toFixed(3);
     dom.outer.style.clipPath = p > 0.002 ? clipAt(gp) : 'none';
     dom.outer.style.webkitClipPath = dom.outer.style.clipPath;
-    dom.inner.style.filter = p > 0.002 ? 'url(#crumple-warp)' : 'none';
     dom.tex.style.opacity = (ge * 0.92).toFixed(3);
-    dom.feTurb.setAttribute('baseFrequency', lerp(0.012, 0.055, gp).toFixed(4));
-    dom.feTurb.setAttribute('seed', turbSeed + Math.floor(gp * 7));
-    dom.feDisp.setAttribute('scale', lerp(0, 30, ge).toFixed(1));
+    if (lite) {
+      // skip the expensive SVG warp entirely on touch devices
+      if (dom.inner.style.filter !== 'none') dom.inner.style.filter = 'none';
+    } else {
+      dom.inner.style.filter = p > 0.002 ? 'url(#crumple-warp)' : 'none';
+      dom.feTurb.setAttribute('baseFrequency', lerp(0.012, 0.055, gp).toFixed(4));
+      dom.feTurb.setAttribute('seed', turbSeed + Math.floor(gp * 7));
+      dom.feDisp.setAttribute('scale', lerp(0, 30, ge).toFixed(1));
+    }
 
     var dx = dir * te * W * 1.9;
     var arc = -0.18 * H * (4 * tp * (1 - tp));
@@ -261,6 +280,7 @@
   function go(href) {
     if (animating) return;
     animating = true;
+    lite = shouldLite();
     var dir = Math.random() < 0.5 ? -1 : 1;
     genFold();
     snapshot();
@@ -327,6 +347,7 @@
     if (d.scale != null) CFG.contentScale = +d.scale;
     if (d.swap != null) CFG.swap = d.swap;
     if (d.sound != null) CFG.enableSound = !/^(off|false|0|no)$/i.test(d.sound);
+    if (d.lite != null) CFG.lite = d.lite;
   }
 
   var inited = false;
