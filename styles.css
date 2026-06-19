@@ -562,6 +562,62 @@
     line-height: 1.65;
   }
 
+  .tl-subrail {
+    position: relative;
+    margin-top: 0.6rem;
+    padding-left: 1.5rem;
+  }
+
+  .tl-subrail::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 6px;
+    bottom: 1.25rem;
+    width: 1px;
+    background: var(--rule);
+  }
+
+  .tl-sub {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .tl-sub:last-child { margin-bottom: 0; }
+
+  .tl-sub-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: var(--paper);
+    flex-shrink: 0;
+    margin-top: 5px;
+    z-index: 1;
+  }
+
+  .tl-sub-head {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    margin-bottom: 0.3rem;
+  }
+
+  .tl-bullets {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.88rem;
+    color: var(--ink-2);
+    line-height: 1.65;
+  }
+
+  .tl-bullets li { margin-bottom: 0.3rem; }
+  .tl-bullets li:last-child { margin-bottom: 0; }
+
   /* ── NOW ── */
   .now-grid {
     display: grid;
